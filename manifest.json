@@ -4,19 +4,19 @@
   "description": "Base Level Extension",
   "version": "1.0",
   "action": {
-    "default_popup": "popup.html",
-    "default_icon": "hello_extensions.png"
+    "default_popup": "./extension/popup.html",
+    "default_icon": "./public/hello_extensions.png"
   },
   "content_scripts": [
     {
-      "js": ["./public/content.js"],
+      "js": ["./extension/content.js"],
       "matches": ["<all_urls>"]
     }
   ],
   "options_page": "options.html",
   "background": {
-    "service_worker": "background.js",
+    "service_worker": "./extension/background.js",
     "type": "module"
   },
-  "permissions": ["activeTab", "storage", "declarativeContent", "scripting"]
+  "permissions": ["activeTab", "storage", "declarativeContent", "scripting", "webNavigation"]
 }

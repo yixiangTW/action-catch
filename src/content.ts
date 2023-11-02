@@ -1,11 +1,5 @@
-// chrome.storage.sync.get('color', async (data) => {
-
-//   document.body.style.backgroundColor = data.color
-// })
-
-
-import './events/check'
-import ctx from './models'
+import './events'
+import ctx from './models/ctx'
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if(request.message === 'export') {

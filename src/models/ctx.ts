@@ -16,9 +16,6 @@ class Ctx {
     delete this.data[key];
   }
 
-  change() {
-    
-  }
 }
 
 export default new Ctx()
