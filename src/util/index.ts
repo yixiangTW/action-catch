@@ -1,32 +1,29 @@
-// @ts-nocheck
-function getElementXPath(element) {
+function getElementXPath(element: any) {
   if (element && element.id) {
     // 如果元素有ID，可以直接使用ID来构建XPath
     return `id("${element.id}")`;
-  } else {
-    // 否则，需要根据元素的标签名和位置逐级构建XPath
-    const segments = [];
-    let current = element;
-    while (current && current.nodeType === Node.ELEMENT_NODE) {
-      let index = 1;
-      for (let sibling = current.previousSibling; sibling; sibling = sibling.previousSibling) {
-        if (sibling.nodeType === Node.ELEMENT_NODE && sibling.tagName === current.tagName) {
-          index++;
-        }
-      }
-      const tagName = current.tagName.toLowerCase();
-      const segment = `${tagName}[${index}]`;
-      segments.unshift(segment);
-      current = current.parentNode;
-    }
-    return `/${segments.join('/')}`;
   }
+  // 否则，需要根据元素的标签名和位置逐级构建XPath
+  const segments = [];
+  let current = element;
+  while (current && current.nodeType === Node.ELEMENT_NODE) {
+    let index = 1;
+    for (let sibling = current.previousSibling; sibling; sibling = sibling.previousSibling) {
+      if (sibling.nodeType === Node.ELEMENT_NODE && sibling.tagName === current.tagName) {
+        index += 1;
+      }
+    }
+    const tagName = current.tagName.toLowerCase();
+    const segment = `${tagName}[${index}]`;
+    segments.unshift(segment);
+    current = current.parentNode;
+  }
+  return `/${segments.join('/')}`;
 }
 
-
-function exportToJsonFile(jsonObject, filename) {
+function exportToJsonFile(jsonObject: any, filename: any) {
   // 将 JSON 数据转换为字符串
-  const jsonString = jsonObject
+  const jsonString = jsonObject;
 
   // 创建一个包含 JSON 字符串的 Blob 对象
   const blob = new Blob([jsonString], { type: 'application/json' });
@@ -46,8 +43,7 @@ function exportToJsonFile(jsonObject, filename) {
   URL.revokeObjectURL(url);
 }
 
-
 export {
   getElementXPath,
-  exportToJsonFile
-}
+  exportToJsonFile,
+};

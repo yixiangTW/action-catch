@@ -1,2 +1,2 @@
-import './check'
-import './click'
+import './check';
+import './click';

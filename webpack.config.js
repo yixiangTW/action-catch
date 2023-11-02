@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -10,12 +10,12 @@ module.exports = {
   },
   mode: 'production',
   output: {
-   filename: '[name].js',
-   path: path.resolve(__dirname, 'extension'),
-   clean: true,
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'extension'),
+    clean: true
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js']
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -30,8 +30,8 @@ module.exports = {
       {
         test: /\.ts$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-    ],
-  },
-};
+        exclude: /node_modules/
+      }
+    ]
+  }
+}
