@@ -15,6 +15,10 @@ class Ctx {
   delete(key: string): void {
     delete this.data[key];
   }
+
+  clear(): void {
+    this.data = {};
+  }
 }
 
 export default new Ctx();

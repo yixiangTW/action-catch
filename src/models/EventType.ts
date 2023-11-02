@@ -1,12 +1,13 @@
-type TypeEventProps = {
+type EventTypeProps = {
   isChecked?: boolean;
   xPath?: string;
   name?: string;
   type?: string;
   content?: string
+  value?: string
 };
 
-export default class TypeEvent {
+export default class EventType {
   content?: string;
 
   isChecked?: boolean;
@@ -17,11 +18,14 @@ export default class TypeEvent {
 
   type?: string;
 
-  constructor(props: TypeEventProps) {
+  value?: string;
+
+  constructor(props: EventTypeProps) {
     this.isChecked = props.isChecked;
     this.xPath = props.xPath;
     this.name = props.name;
     this.type = props.type;
     this.content = props.content;
+    this.value = props.value;
   }
 }

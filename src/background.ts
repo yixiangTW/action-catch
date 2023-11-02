@@ -6,4 +6,3 @@ const initExtension = () => {
 };
 
 chrome.runtime.onInstalled.addListener(initExtension);
-chrome.webNavigation.onCommitted.addListener(initExtension);
