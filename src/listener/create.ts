@@ -1,4 +1,4 @@
-import { getElementXPath } from '../util';
+import { getElementXPath, log } from '../util';
 import EventType from '../models/EventType';
 import { getCtx } from '../util/chrome';
 
@@ -7,7 +7,7 @@ const create = ({
   selector, keyPrefix, eventName, cb,
 }: Props) => {
   const inputElements = document.querySelectorAll(selector);
-  const getActionKey = () => `${keyPrefix}-${new Date().getTime()}`;
+  const getActionKey = () => `${new Date().getTime()}-${keyPrefix}`;
 
   inputElements.forEach((inputElement) => {
     inputElement.addEventListener(eventName, (event: any) => {
@@ -17,11 +17,12 @@ const create = ({
         if (result.listen) {
           const arg = {
             xPath,
-            ...cb(element),
+            ...cb(event),
           };
           const ctx: any = await getCtx();
           ctx[getActionKey()] = new EventType(arg);
-          console.warn('create record');
+
+          log(`Insert ${eventName} record`);
           chrome.storage.sync.set({ ctx });
         }
       });

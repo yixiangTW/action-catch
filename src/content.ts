@@ -1,10 +1,14 @@
 import startListen from './listener';
 import { getCtx } from './util/chrome';
+import { log } from './util/index';
 
 startListen();
 
 const setCtxToPopup = async () => {
+  log('Printing record');
   const ctx = await getCtx();
+  log(ctx);
+  log('Over');
   chrome.runtime.sendMessage({ message: 'data', data: JSON.stringify(ctx) });
 };
 

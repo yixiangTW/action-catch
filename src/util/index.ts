@@ -1,3 +1,11 @@
+const log = (content: string | object) => {
+  if (typeof content === 'object') {
+    console.log(`%c${JSON.stringify(content, null, 2)} ---from extension`, 'color: black; font-size: 10px; padding: 5px; background: #87CEEB;');
+  } else {
+    console.log(`%c${content} ---from extension`, 'color: white; font-size: 10px; padding: 5px; background: green;');
+  }
+};
+
 function getElementXPath(element: any) {
   if (element && element.id) {
     // 如果元素有ID，可以直接使用ID来构建XPath
@@ -44,6 +52,7 @@ function exportToJsonFile(jsonObject: any, filename: any) {
 }
 
 export {
+  log,
   getElementXPath,
   exportToJsonFile,
 };
