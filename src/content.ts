@@ -3,13 +3,15 @@ import { getCtx } from './util/chrome';
 
 startListen();
 
-chrome.runtime.onMessage.addListener(async (request) => {
+const setCtxToPopup = async () => {
+  const ctx = await getCtx();
+  chrome.runtime.sendMessage({ message: 'data', data: JSON.stringify(ctx) });
+};
+
+chrome.runtime.onMessage.addListener((request) => {
   if (request.message === 'export') {
-    const ctx = await getCtx();
-    console.log(ctx);
-    chrome.runtime.sendMessage({ message: 'data', data: JSON.stringify(ctx) });
-  }
-  if (request.message === 'clear') {
+    setCtxToPopup();
+  } else if (request.message === 'clear') {
     chrome.storage.sync.set({ ctx: {} });
   }
 });
