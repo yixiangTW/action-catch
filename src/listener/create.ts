@@ -1,6 +1,6 @@
 import { getElementXPath } from '../util';
 import EventType from '../models/EventType';
-import ctx from '../models';
+import { getCtx } from '../util/chrome';
 
 type Props = {selector: string, keyPrefix: string, eventName: string, cb: any}
 const create = ({
@@ -13,13 +13,16 @@ const create = ({
     inputElement.addEventListener(eventName, (event: any) => {
       const element = event.target;
       const xPath = getElementXPath(element);
-      chrome.storage.sync.get('listen', (result) => {
+      chrome.storage.sync.get('listen', async (result) => {
         if (result.listen) {
           const arg = {
             xPath,
             ...cb(element),
           };
-          ctx.set(getActionKey(), new EventType(arg));
+          const ctx: any = await getCtx();
+          ctx[getActionKey()] = new EventType(arg);
+          console.warn('create record');
+          chrome.storage.sync.set({ ctx });
         }
       });
     });

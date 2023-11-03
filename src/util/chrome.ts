@@ -9,3 +9,9 @@ export const getTabId = () => new Promise<number | undefined>((resolve) => {
     resolve(tabs[0].id);
   });
 });
+
+export const getCtx = () => new Promise((resolve) => {
+  chrome.storage.sync.get('ctx', (data) => {
+    resolve((data.ctx));
+  });
+});

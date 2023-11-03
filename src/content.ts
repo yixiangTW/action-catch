@@ -1,13 +1,15 @@
-import './listener';
-import ctx from './models';
+import startListen from './listener';
+import { getCtx } from './util/chrome';
 
-console.log(ctx);
+startListen();
 
-chrome.runtime.onMessage.addListener((request) => {
+chrome.runtime.onMessage.addListener(async (request) => {
   if (request.message === 'export') {
+    const ctx = await getCtx();
+    console.log(ctx);
     chrome.runtime.sendMessage({ message: 'data', data: JSON.stringify(ctx) });
   }
   if (request.message === 'clear') {
-    ctx.clear();
+    chrome.storage.sync.set({ ctx: {} });
   }
 });

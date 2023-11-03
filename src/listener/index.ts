@@ -1,4 +1,5 @@
 import event from '../events';
 import createListener from './create';
 
-createListener(event);
+const startListen = () => createListener(event);
+export default startListen;
