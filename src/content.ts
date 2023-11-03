@@ -2,7 +2,10 @@ import startListen from './listener';
 import { getCtx } from './util/chrome';
 import { log } from './util/index';
 
-startListen();
+setTimeout(() => {
+  log('init');
+  startListen();
+});
 
 const setCtxToPopup = async () => {
   log('Printing record');
