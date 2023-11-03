@@ -14,9 +14,9 @@ const clearBtn = document.querySelector('#clear') as Element;
 const handleToggleListen = async (isListen: boolean) => {
   const listenStatus = isListen ? 'ON' : 'OFF';
   title.innerText = listenStatus;
-  chrome.action.setBadgeText({
-    text: listenStatus,
-  });
+  // chrome.action.setBadgeText({
+  //   text: listenStatus,
+  // });
   chrome.storage.sync.set({ listen: isListen });
 };
 
