@@ -1,3 +1,15 @@
+const getActionKey = (keyPrefix: string) => `${new Date().getTime()}-${keyPrefix}`;
+
+function debounce(func: any, delay: number) {
+  let timer: any;
+  return function (...args: any) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+}
+
 const log = (content: string | object) => {
   if (typeof content === 'object') {
     console.log(`%c${JSON.stringify(content, null, 2)} ---from extension`, 'color: black; font-size: 10px; padding: 5px; background: #87CEEB;');
@@ -52,6 +64,8 @@ function exportToJsonFile(jsonObject: any, filename: any) {
 }
 
 export {
+  getActionKey,
+  debounce,
   log,
   getElementXPath,
   exportToJsonFile,

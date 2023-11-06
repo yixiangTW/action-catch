@@ -3,7 +3,8 @@ import { exportToJsonFile } from './util';
 
 const listenBtn = document.querySelector('#listen') as Element;
 const exportBtn = document.querySelector('#export') as Element;
-const title = document.querySelector('h1') as HTMLHeadingElement;
+const title = document.querySelector('span') as HTMLHeadingElement;
+const unListenBtn = document.querySelector('#UnListen') as Element;
 const clearBtn = document.querySelector('#clear') as Element;
 
 (async () => {
@@ -39,6 +40,14 @@ clearBtn.addEventListener('click', async () => {
     return;
   }
   chrome.tabs.sendMessage(tabId, { message: 'clear' });
+});
+
+unListenBtn.addEventListener('click', async () => {
+  const tabId = await getTabId();
+  if (!tabId) {
+    return;
+  }
+  chrome.tabs.sendMessage(tabId, { message: 'unlisten' });
 });
 
 chrome.runtime.onMessage.addListener((request) => {

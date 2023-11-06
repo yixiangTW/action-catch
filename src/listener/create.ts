@@ -1,37 +1,33 @@
-import { getElementXPath, log } from '../util';
-import EventType from '../models/EventType';
-import { getCtx } from '../util/chrome';
+import commonListener from './commonListener';
+import typeListener from './typeListener';
 
-type Props = {selector: string, keyPrefix: string, eventName: string, cb: any}
+type CreatePropsType = { selector: string, keyPrefix: string, eventName: string, cb: any }
+const listenerMap: any = {
+  keydown: typeListener,
+};
+
 const create = ({
   selector, keyPrefix, eventName, cb,
-}: Props) => {
+}: CreatePropsType) => {
   const inputElements = document.querySelectorAll(selector);
-  const getActionKey = () => `${new Date().getTime()}-${keyPrefix}`;
+  return [...inputElements].map((inputElement: any) => {
+    const fn = (event: any) => {
+      const listener = listenerMap[eventName];
+      if (listener) {
+        listener(event, cb, keyPrefix);
+        return;
+      }
+      commonListener(event, cb, keyPrefix, eventName);
+    };
 
-  inputElements.forEach((inputElement) => {
-    inputElement.addEventListener(eventName, (event: any) => {
-      const element = event.target;
-      const xPath = getElementXPath(element);
-      chrome.storage.sync.get('listen', async (result) => {
-        if (result.listen) {
-          const arg = {
-            xPath,
-            ...cb(event),
-          };
-          const ctx: any = await getCtx();
-          ctx[getActionKey()] = new EventType(arg);
+    inputElement.addEventListener(eventName, fn);
 
-          log(`Insert ${eventName} record`);
-          chrome.storage.sync.set({ ctx });
-        }
-      });
-    });
+    return () => {
+      inputElement.removeEventListener(eventName, fn);
+    };
   });
 };
 
-const createListener = (events: any) => {
-  events.map((event: any) => create(event));
-};
+const createListener = (events: any) => events.map((event: any) => create(event)).flat(1);
 
 export default createListener;
