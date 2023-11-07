@@ -3,27 +3,38 @@ This is a chrome extension that logs all the actions of the page, you can run `n
 ### record sample
 ```json
 {
-   "1698996430475-click":{
-      "content":"All",
-      "xPath":"/html[1]/body[1]/section[1]/footer[1]/ul[1]/li[1]/a[1]"
+   "1699343196565-type":{
+      "isEnter":true,
+      "value":"aaa",
+      "xPath":"/html[1]/body[1]/section[1]/header[1]/input[1]"
    },
-   "1698996432142-click":{
-      "content":"Active",
-      "xPath":"/html[1]/body[1]/section[1]/footer[1]/ul[1]/li[2]/a[1]"
-   },
-   "1698996432960-click":{
+   "1699343199347-click":{
       "content":"Completed",
       "xPath":"/html[1]/body[1]/section[1]/footer[1]/ul[1]/li[3]/a[1]"
    },
-   "1698996446594-type":{
-      "value":"nihao",
+   "1699343225445-type":{
+      "isEnter":true,
+      "value":"ccc",
       "xPath":"/html[1]/body[1]/section[1]/header[1]/input[1]"
+   },
+   "1699343254313-check":{
+      "isChecked":true,
+      "type":"checkbox",
+      "value":"on",
+      "xPath":"id(\"toggle-all\")"
+   },
+   "1699343273463-check":{
+      "isChecked":false,
+      "type":"checkbox",
+      "value":"on",
+      "xPath":"id(\"toggle-all\")"
    }
 }
 ```
 
 ### Features
 Listen: Switch listening mode   
+Record: Switch record mode   
 Export: Export data as a json file   
 Clear: Clear listened data   
 
