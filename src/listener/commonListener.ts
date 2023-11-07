@@ -5,8 +5,8 @@ import { getCtx } from '../util/chrome';
 const handleCommon = (event: any, cb: any, keyPrefix: string, eventName: string) => {
   const element = event.target;
   const xPath = getElementXPath(element);
-  chrome.storage.sync.get('listen', async (result) => {
-    if (result.listen) {
+  chrome.storage.sync.get('record', async (result) => {
+    if (result.record) {
       const arg = {
         xPath,
         ...cb(event),

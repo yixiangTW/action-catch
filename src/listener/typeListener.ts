@@ -12,8 +12,8 @@ const save = debounce((ctx: any) => {
 const handleTypeWithEnter = (event: any, cb: any, keyPrefix: string) => {
   const element = event.target;
   const xPath = getElementXPath(element);
-  chrome.storage.sync.get('listen', async (result) => {
-    if (result.listen) {
+  chrome.storage.sync.get('record', async (result) => {
+    if (result.record) {
       const arg = {
         xPath,
         ...cb(event),

@@ -1,8 +1,6 @@
 const initExtension = () => {
-  // chrome.action.setBadgeText({
-  //   text: 'OFF',
-  // });
   chrome.storage.sync.set({ listen: false });
+  chrome.storage.sync.set({ record: false });
   chrome.storage.sync.set({ ctx: {} });
 };
 

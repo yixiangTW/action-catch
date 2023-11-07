@@ -1,29 +1,44 @@
-import { getCurrentListenStatus, getTabId } from './util/chrome';
+import { getCurrentRecordStatus, getTabId, getCurrentListenStatus } from './util/chrome';
 import { exportToJsonFile } from './util';
 
 const listenBtn = document.querySelector('#listen') as Element;
+const recordBtn = document.querySelector('#record') as Element;
 const exportBtn = document.querySelector('#export') as Element;
-const title = document.querySelector('span') as HTMLHeadingElement;
-const unListenBtn = document.querySelector('#UnListen') as Element;
+const listenSpan = document.querySelector('#listen-status span') as HTMLHeadingElement;
+const recordSpan = document.querySelector('#record-status span') as HTMLHeadingElement;
 const clearBtn = document.querySelector('#clear') as Element;
 
-(async () => {
+const refreshPopPage = async () => {
+  const isRecord = await getCurrentRecordStatus();
   const isListen = await getCurrentListenStatus();
-  title.innerText = isListen ? 'ON' : 'OFF';
-})();
+  listenSpan.innerText = isListen ? 'ON' : 'OFF';
+  recordSpan.innerText = isRecord ? 'ON' : 'OFF';
+};
 
-const handleToggleListen = async (isListen: boolean) => {
-  const listenStatus = isListen ? 'ON' : 'OFF';
-  title.innerText = listenStatus;
-  // chrome.action.setBadgeText({
-  //   text: listenStatus,
-  // });
+refreshPopPage();
+
+const handleToggleRecordStatus = async (isRecord: boolean) => {
+  chrome.storage.sync.set({ record: isRecord });
+  refreshPopPage();
+};
+
+const handleToggleListenStatus = async (isListen: boolean) => {
   chrome.storage.sync.set({ listen: isListen });
+  refreshPopPage();
 };
 
 listenBtn.addEventListener('click', async () => {
+  const tabId = await getTabId();
+  if (!tabId) {
+    return;
+  }
   const isListen = await getCurrentListenStatus();
-  handleToggleListen(!isListen);
+  chrome.tabs.sendMessage(tabId, { message: !isListen ? 'listen' : 'unlisten' });
+});
+
+recordBtn.addEventListener('click', async () => {
+  const isRecord = await getCurrentRecordStatus();
+  handleToggleRecordStatus(!isRecord);
 });
 
 exportBtn.addEventListener('click', async () => {
@@ -42,16 +57,12 @@ clearBtn.addEventListener('click', async () => {
   chrome.tabs.sendMessage(tabId, { message: 'clear' });
 });
 
-unListenBtn.addEventListener('click', async () => {
-  const tabId = await getTabId();
-  if (!tabId) {
-    return;
-  }
-  chrome.tabs.sendMessage(tabId, { message: 'unlisten' });
-});
-
 chrome.runtime.onMessage.addListener((request) => {
   if (request.message === 'data') {
     exportToJsonFile(request.data, 'data.json');
+  } else if (request.message === 'listen done') {
+    handleToggleListenStatus(true);
+  } else if (request.message === 'unlisten done') {
+    handleToggleListenStatus(false);
   }
 });

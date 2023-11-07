@@ -1,6 +1,12 @@
-export const getCurrentListenStatus = () => new Promise<number>((resolve) => {
+export const getCurrentListenStatus = () => new Promise<boolean>((resolve) => {
   chrome.storage.sync.get('listen', (result) => {
     resolve(result.listen);
+  });
+});
+
+export const getCurrentRecordStatus = () => new Promise<boolean>((resolve) => {
+  chrome.storage.sync.get('record', (result) => {
+    resolve(result.record);
   });
 });
 
