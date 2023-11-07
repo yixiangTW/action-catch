@@ -6,7 +6,6 @@ const handleCommon = (event: any, cb: any, keyPrefix: string, eventName: string)
   const element = event.target;
   const xPath = getElementXPath(element);
   chrome.storage.sync.get('record', async (result) => {
-    console.log(result.record);
     if (result.record) {
       const arg = {
         xPath,
