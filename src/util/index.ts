@@ -1,3 +1,31 @@
+function getVisibleText(element: any) {
+  if (element.nodeType === Node.TEXT_NODE) {
+    return element.textContent.trim();
+  }
+
+  if (element.nodeType !== Node.ELEMENT_NODE) {
+    return '';
+  }
+
+  const computedStyle = window.getComputedStyle(element);
+  if (
+    computedStyle.display === 'none'
+    || computedStyle.visibility === 'hidden'
+    || computedStyle.opacity === '0'
+  ) {
+    return '';
+  }
+
+  let visibleText = '';
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < element.childNodes.length; i++) {
+    const childText = getVisibleText(element.childNodes[i]);
+    visibleText += childText;
+  }
+
+  return visibleText;
+}
+
 const getActionKey = (keyPrefix: string) => `${new Date().getTime()}-${keyPrefix}`;
 
 function debounce(func: any, delay: number) {
@@ -64,6 +92,7 @@ function exportToJsonFile(jsonObject: any, filename: any) {
 }
 
 export {
+  getVisibleText,
   getActionKey,
   debounce,
   log,
