@@ -1,3 +1,17 @@
+function removeLastProperty(obj: any) {
+  // 获取对象的所有属性名
+  const keys = Object.keys(obj);
+  // 检查对象是否有属性
+  if (keys.length === 0) {
+    return obj;
+  }
+  // 获取最后一个属性名
+  const lastKey = keys[keys.length - 1];
+  // 删除最后一个属性
+  delete obj[lastKey];
+  return obj;
+}
+
 function getVisibleText(element: any) {
   if (element.nodeType === Node.TEXT_NODE) {
     return element.textContent.trim();
@@ -92,6 +106,7 @@ function exportToJsonFile(jsonObject: any, filename: any) {
 }
 
 export {
+  removeLastProperty,
   getVisibleText,
   getActionKey,
   debounce,

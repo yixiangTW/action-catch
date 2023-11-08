@@ -1,0 +1,54 @@
+#chrome-extension-catch-container {
+  text-align: center;
+  height: 100%;
+  padding: 20px;
+  background-color: #f2f2f2;
+}
+
+
+#chrome-extension-catch-container #listen-status, #chrome-extension-catch-container #record-status {
+  font-size: 16px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+#chrome-extension-catch-container #listen-status span, #chrome-extension-catch-container #record-status span {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+#chrome-extension-catch-container #listen-active, #chrome-extension-catch-container #record-active {
+  color: #3498db; /* 活动状态的颜色 */
+}
+
+#chrome-extension-catch-container #listen-dead, #chrome-extension-catch-container #record-dead {
+  color: #ccc; /* 非活动状态的颜色 */
+}
+
+
+#chrome-extension-catch-container button {
+  justify-content: center;
+  margin: 10px auto;
+  padding: 10px 20px;
+  min-width: 161px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex; /* 使用 flex 布局 */
+  align-items: center; /* 垂直居中对齐按钮内容 */
+  transition: background-color 0.3s;
+}
+
+#chrome-extension-catch-container button:hover {
+  background-color: #1e87cd;
+}
+
+#chrome-extension-catch-container span {
+  font-weight: bold;
+}

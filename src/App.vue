@@ -26,11 +26,22 @@ const sentMessageToContent = async (message: string) => {
   chrome.tabs.sendMessage(tabId, { message });
 }
 const handleToggleListen = () => {
-  sentMessageToContent(!listenStatus.value ? 'listen' : 'unlisten')
+  if(listenStatus.value) {
+    sentMessageToContent('unlisten');
+    Promise.resolve().then(() => sentMessageToContent('listen'));
+  } else {
+    sentMessageToContent('listen');
+  }
+
+  // sentMessageToContent(!listenStatus.value ? 'listen' : 'unlisten')
 }
 
 const handleRecordListen = () => {
   sentMessageToContent(!recordStatus.value ? 'record' : 'unrecord')
+}
+
+const handleClearPreStep = async () => {
+  sentMessageToContent('clear_previous_step');
 }
 
 const handleClear = async () => {
@@ -62,14 +73,17 @@ chrome.runtime.onMessage.addListener((request) => {
 });
 
 
-
 </script>
 
 <template>
-  <h5 id="listen-status">Listen status: <span>{{ listenStatus }}</span></h5>
-  <h5 id="record-status">Record status: <span>{{ recordStatus }}</span></h5>
-  <button @click="handleToggleListen">{{ listenStatus ? 'Unlisten' : 'Listen' }}</button>
-  <button @click="handleRecordListen">{{  recordStatus ? 'Unrecord' : 'Record' }}</button>
-  <button @click="handleClear">Clear</button>
-  <button @click="handleExport">Export</button>
+  <div id="chrome-extension-catch-container">
+    <h5 id="listen-status">Listen status: <span :id="listenStatus ? 'listen-active' : 'listen-dead'">{{ listenStatus }}</span></h5>
+    <h5 id="record-status">Record status: <span :id="recordStatus ? 'record-active' : 'record-dead'">{{ recordStatus }}</span></h5>
+    <button @click="handleToggleListen">{{ listenStatus ? 'Relisten' : 'Listen' }}</button>
+    <button @click="handleRecordListen">{{  recordStatus ? 'Unrecord' : 'Record' }}</button>
+    <button @click="handleClearPreStep">Clear Pre Step</button>
+    <button @click="handleClear">Clear All</button>
+    <button @click="handleExport">Export</button>
+  </div>
+
 </template>

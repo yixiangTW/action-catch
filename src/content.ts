@@ -1,6 +1,6 @@
 import startListen from './listener';
 import { getCtx } from './util/chrome';
-import { log } from './util/index';
+import { log, removeLastProperty } from './util/index';
 
 let allCreatedListeners: any = null;
 
@@ -36,6 +36,12 @@ const setCtxToPopup = async () => {
   chrome.runtime.sendMessage({ message: 'data', data: JSON.stringify(ctx) });
 };
 
+const clearPreviousStep = async () => {
+  log('Cleared previous step record');
+  const ctx = await getCtx();
+  chrome.storage.sync.set({ ctx: removeLastProperty(ctx) });
+};
+
 const clear = () => {
   log('Cleared all records');
   chrome.storage.sync.set({ ctx: {} });
@@ -54,5 +60,7 @@ chrome.runtime.onMessage.addListener((request) => {
     addRecord();
   } else if (request.message === 'unrecord') {
     removeRecord();
+  } else if (request.message === 'clear_previous_step') {
+    clearPreviousStep();
   }
 });
