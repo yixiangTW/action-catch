@@ -1,13 +1,21 @@
+function flatOne(arr: any[]) {
+  const ret = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (Array.isArray(arr[i])) {
+      ret.push(...arr[i]);
+    } else {
+      ret.push(arr[i]);
+    }
+  }
+  return ret;
+}
+
 function removeLastProperty(obj: any) {
-  // 获取对象的所有属性名
   const keys = Object.keys(obj);
-  // 检查对象是否有属性
   if (keys.length === 0) {
     return obj;
   }
-  // 获取最后一个属性名
   const lastKey = keys[keys.length - 1];
-  // 删除最后一个属性
   delete obj[lastKey];
   return obj;
 }
@@ -106,6 +114,7 @@ function exportToJsonFile(jsonObject: any, filename: any) {
 }
 
 export {
+  flatOne,
   removeLastProperty,
   getVisibleText,
   getActionKey,

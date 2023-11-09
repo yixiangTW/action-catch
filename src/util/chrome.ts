@@ -1,3 +1,5 @@
+import { Ctx } from '../types/model';
+
 export const getCurrentListenStatus = () => new Promise<boolean>((resolve) => {
   chrome.storage.sync.get('listen', (result) => {
     resolve(result.listen);
@@ -16,7 +18,7 @@ export const getTabId = () => new Promise<number | undefined>((resolve) => {
   });
 });
 
-export const getCtx = () => new Promise<object>((resolve) => {
+export const getCtx = () => new Promise<Ctx>((resolve) => {
   chrome.storage.sync.get('ctx', (data) => {
     resolve((data.ctx));
   });

@@ -2,7 +2,9 @@ import startListen from './listener';
 import { getCtx } from './util/chrome';
 import { log, removeLastProperty } from './util/index';
 
-let allCreatedListeners: any = null;
+import { RemoveEventListener } from './types/listener';
+
+let allRemoveListeners: RemoveEventListener[];
 
 const addRecord = () => {
   log('Started record');
@@ -18,13 +20,13 @@ const removeRecord = () => {
 
 const addListen = () => {
   log('Created all listeners');
-  allCreatedListeners = startListen();
+  allRemoveListeners = startListen();
   chrome.runtime.sendMessage({ message: 'listen', data: true });
 };
 
 const removeListen = () => {
   log('Destroyed all listeners');
-  allCreatedListeners.map((fn: any) => fn());
+  allRemoveListeners.map((fn) => fn());
 
   chrome.runtime.sendMessage({ message: 'listen', data: false });
 };

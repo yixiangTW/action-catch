@@ -33,6 +33,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   rules: {
+    'no-plusplus': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/extensions': 'off',
     'react/jsx-filename-extension': 'off',

@@ -2,16 +2,18 @@ import { getElementXPath, log, getActionKey } from '../util';
 import EventType from '../models/EventType';
 import { getCtx } from '../util/chrome';
 
-const handleCommon = (event: any, cb: any, keyPrefix: string, eventName: string) => {
+import { ListenerType } from '../types/listener';
+
+const commonListener: ListenerType = (event, cb, keyPrefix, eventName) => {
   const element = event.target;
   const xPath = getElementXPath(element);
   chrome.storage.sync.get('record', async (result) => {
     if (result.record) {
       const arg = {
         xPath,
-        ...cb(event),
+        ...(cb ? cb(event) : {}),
       };
-      const ctx: any = await getCtx();
+      const ctx = await getCtx();
       ctx[getActionKey(keyPrefix)] = new EventType(arg);
 
       log(`Inserted ${eventName} event record`);
@@ -20,4 +22,4 @@ const handleCommon = (event: any, cb: any, keyPrefix: string, eventName: string)
   });
 };
 
-export default handleCommon;
+export default commonListener;
