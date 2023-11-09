@@ -13,15 +13,6 @@ This is a chrome extension that logs all the actions of the page, you can run `n
       "content":"",
       "xPath":"id(\"next-btn\")"
    },
-   "1699427066078-type":{
-      "isEnter":false,
-      "value":"aaa",
-      "xPath":"id(\"password\")"
-   },
-   "1699427071167-click":{
-      "content":"登录",
-      "xPath":"/html[1]/body[1]/app-root[1]/div[1]/div[1]/div[1]/div[1]/app-enter-password-page[1]/div[1]/form[1]/div[1]/button[1]"
-   },
    "1699427142607-click":{
       "content":"客户管理",
       "xPath":"/html[1]/body[1]/cp-root[1]/clr-main-container[1]/div[1]/div[1]/cp-nav[1]/clr-vertical-nav[1]/div[1]/div[3]/a[1]/span[1]"
@@ -35,11 +26,6 @@ This is a chrome extension that logs all the actions of the page, you can run `n
       "type":"radio",
       "value":"INTERNAL",
       "xPath":"id(\"clr-form-control-23\")"
-   },
-   "1699427197230-type":{
-      "isEnter":false,
-      "value":"liuyixiang",
-      "xPath":"id(\"clr-form-control-14\")"
    },
    "1699427217107-type":{
       "isEnter":false,
@@ -90,4 +76,5 @@ graph TD;
 - [ ] Support for more page operations
 - [ ] Optimize the popup page with UI
 - [ ] Support for turning operations into cypress cases
+- [ ] Auto relisten
 
