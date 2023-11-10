@@ -1,4 +1,6 @@
-This is a chrome extension that logs all the actions of the page, you can run `npm run build` to try.
+This is an extension designed to log all actions on the page. You can run npm run build to give it a try.
+
+> Note: The extension will automatically re-listen to the page every 1.5 seconds.
 
 ### record sample
 
@@ -57,24 +59,30 @@ This is a chrome extension that logs all the actions of the page, you can run `n
 
 ### Features
 
-* Listen: Start listening mode
-* Relisten: Restart listening mode
-* Record: Switch record mode
-* Export: Export data as a json file
-* Clear previous record
-* Clear all record
+* ~~Listen: Start listening mode (deprecated)~~
+* ~~Relisten: Restart listening mode (deprecated)~~
+* Stop And Start Recording
+* Clear Previous Step
+* Clear All Records
+* Export Records
+
+### Lifecycle
 
 ```mermaid
 graph TD;
-  Page_Load_Complete-->Listen-->Record-->Page_Reload_Complete-->Relisten-->Export;
+  Page_Load_Complete-->Auto_Listen-->Start_Recording-->Page_Reload_Complete-->Auto_Relisten-->Export_Records;
+  Start_Recording-->Clear_All_Records-->Export_Records
+  Start_Recording-->Clear_Previous_Step-->Export_Records
+  Start_Recording-->Stop_Recording-->Export_Records
+
 ```
 
 
 
-### Todo:
+### Todo
 
 - [ ] Support for more page operations
-- [ ] Optimize the popup page with UI
+- [x] Optimize the popup page with UI
 - [ ] Support for turning operations into cypress cases
-- [ ] Auto relisten
+- [x] Auto relisten
 
