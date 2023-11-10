@@ -1,20 +1,19 @@
 #chrome-extension-catch-container {
   text-align: center;
-  height: 100%;
   padding: 20px;
-  background-color: #f2f2f2;
 }
 
 
 #chrome-extension-catch-container #listen-status, #chrome-extension-catch-container #record-status {
-  font-size: 16px;
+  font-size: 12px;
   margin: 0;
+  margin-bottom: 5px;
   display: flex;
   align-items: center;
 }
 
 #chrome-extension-catch-container #listen-status span, #chrome-extension-catch-container #record-status span {
-  margin-left: 10px;
+  margin-left: 5px;
   font-weight: bold;
 }
 

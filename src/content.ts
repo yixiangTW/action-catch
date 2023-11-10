@@ -26,8 +26,9 @@ const addListen = () => {
 
 const removeListen = () => {
   log('Destroyed all listeners');
-  allRemoveListeners.map((fn) => fn());
-
+  if (allRemoveListeners) {
+    allRemoveListeners.map((fn) => fn());
+  }
   chrome.runtime.sendMessage({ message: 'listen', data: false });
 };
 
@@ -66,3 +67,15 @@ chrome.runtime.onMessage.addListener((request) => {
     clearPreviousStep();
   }
 });
+
+const autoRelisten = () => {
+  if (allRemoveListeners) {
+    allRemoveListeners.map((fn) => fn());
+  }
+  chrome.storage.sync.set({ listen: true });
+  allRemoveListeners = startListen();
+};
+
+setInterval(() => {
+  autoRelisten();
+}, 1500);
