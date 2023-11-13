@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Action tracker",
-  "description": "Base Level Extension",
+  "description": "Used to record all page interactions, such as button clicks, dropdown menu selections, and more.",
   "version": "1.0",
   "action": {
     "default_popup": "./extension/popup.html",
