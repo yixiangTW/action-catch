@@ -23,3 +23,9 @@ export type ListenerType = (
 export type SupportListenersType = {
   [key: string]: ListenerType
 }
+
+export type PopupMessage = 'clear_previous_step' | 'unrecord' | 'record' | 'listen' | 'unlisten' | 'clear' | 'export'
+
+export type HandleFromPopupMapType = {
+  [key in PopupMessage]: () => void
+}

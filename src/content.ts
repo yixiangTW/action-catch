@@ -2,7 +2,7 @@ import startListen from './listener';
 import { getCtx } from './util/chrome';
 import { log, removeLastProperty } from './util/index';
 
-import { RemoveEventListener } from './types/listener';
+import { RemoveEventListener, HandleFromPopupMapType, PopupMessage } from './types/listener';
 
 let allRemoveListeners: RemoveEventListener[];
 
@@ -50,22 +50,19 @@ const clear = () => {
   chrome.storage.sync.set({ ctx: {} });
 };
 
+const handleFromPopupMap: HandleFromPopupMapType = {
+  export: setCtxToPopup,
+  clear,
+  unlisten: removeListen,
+  listen: addListen,
+  record: addRecord,
+  unrecord: removeRecord,
+  clear_previous_step: clearPreviousStep,
+};
+
 chrome.runtime.onMessage.addListener((request) => {
-  if (request.message === 'export') {
-    setCtxToPopup();
-  } else if (request.message === 'clear') {
-    clear();
-  } else if (request.message === 'unlisten') {
-    removeListen();
-  } else if (request.message === 'listen') {
-    addListen();
-  } else if (request.message === 'record') {
-    addRecord();
-  } else if (request.message === 'unrecord') {
-    removeRecord();
-  } else if (request.message === 'clear_previous_step') {
-    clearPreviousStep();
-  }
+  const { message } = request;
+  handleFromPopupMap[message as PopupMessage]();
 });
 
 const autoRelisten = () => {
@@ -76,6 +73,26 @@ const autoRelisten = () => {
   allRemoveListeners = startListen();
 };
 
-setInterval(() => {
-  autoRelisten();
-}, 1500);
+let interval = 0;
+const startAutoRelisten = () => {
+  interval = setInterval(() => {
+    autoRelisten();
+  }, 1500);
+};
+log('Entering the current tab, start listening.');
+startAutoRelisten();
+
+function handleVisibilityChange() {
+  if (document.hidden) {
+    log('Leaving the current tab, stop listening.');
+    clearInterval(interval);
+  } else {
+    log('Entering the current tab, resume listening.');
+    startAutoRelisten();
+  }
+}
+
+document.addEventListener('visibilitychange', handleVisibilityChange);
+window.addEventListener('beforeunload', () => {
+  document.removeEventListener('visibilitychange', handleVisibilityChange);
+});

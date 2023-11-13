@@ -25,6 +25,8 @@ const sentMessageToContent = async (message: string) => {
   }
   chrome.tabs.sendMessage(tabId, { message });
 }
+
+// 手动监听的逻辑，先不删
 const handleToggleListen = () => {
   if(listenStatus.value) {
     sentMessageToContent('unlisten');
@@ -33,7 +35,6 @@ const handleToggleListen = () => {
     sentMessageToContent('listen');
   }
 
-  // sentMessageToContent(!listenStatus.value ? 'listen' : 'unlisten')
 }
 
 const handleRecordListen = () => {

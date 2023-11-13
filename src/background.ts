@@ -7,6 +7,7 @@ const initExtension = () => {
 chrome.runtime.onInstalled.addListener(initExtension);
 chrome.tabs.onRemoved.addListener(initExtension);
 
-chrome.webNavigation.onCommitted.addListener(() => {
-  chrome.storage.sync.set({ listen: false });
-});
+// 手动监听的逻辑，先不删
+// chrome.webNavigation.onCommitted.addListener(() => {
+//   chrome.storage.sync.set({ listen: false });
+// });
