@@ -8,6 +8,6 @@ chrome.runtime.onInstalled.addListener(initExtension);
 chrome.tabs.onRemoved.addListener(initExtension);
 
 // 手动监听的逻辑，先不删
-// chrome.webNavigation.onCommitted.addListener(() => {
-//   chrome.storage.sync.set({ listen: false });
-// });
+chrome.webNavigation.onCommitted.addListener(() => {
+  chrome.storage.sync.set({ listen: false });
+});

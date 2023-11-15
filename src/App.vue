@@ -37,6 +37,10 @@ const handleToggleListen = () => {
 
 }
 
+const handleExportCypress = () => {
+  sentMessageToContent('export_cypress');
+}
+
 const handleRecordListen = () => {
   sentMessageToContent(!recordStatus.value ? 'record' : 'unrecord')
 }
@@ -70,6 +74,8 @@ chrome.runtime.onMessage.addListener((request) => {
     respondListenStatus(request.data);
   } else if (request.message === 'record') {
     respondRecordStatus(request.data);
+  } else if (request.message === 'cypress_data') {
+    exportToJsonFile(request.data, 'cypress.js');
   }
 });
 
@@ -80,11 +86,12 @@ chrome.runtime.onMessage.addListener((request) => {
   <div id="chrome-extension-catch-container">
     <h5 id="listen-status">Monitoring status: <span :id="listenStatus ? 'listen-active' : 'listen-dead'">{{ listenStatus }}</span></h5>
     <h5 id="record-status">Logging status: <span :id="recordStatus ? 'record-active' : 'record-dead'">{{ recordStatus }}</span></h5>
-    <!-- <button @click="handleToggleListen" disabled>{{ listenStatus ? 'Relisten' : 'Listen' }}</button> -->
+    <button @click="handleToggleListen">{{ listenStatus ? 'Relisten' : 'Listen' }}</button>
     <button @click="handleRecordListen">{{  recordStatus ? 'Stop Recording' : 'Start Recording' }}</button>
     <button @click="handleClearPreStep">Clear Previous Step</button>
     <button @click="handleClear">Clear All Records</button>
     <button @click="handleExport">Export Records</button>
+    <button @click="handleExportCypress">Export Cypress Case</button>
   </div>
 
 </template>

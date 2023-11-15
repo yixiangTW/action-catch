@@ -24,7 +24,7 @@ export type SupportListenersType = {
   [key: string]: ListenerType
 }
 
-export type PopupMessage = 'clear_previous_step' | 'unrecord' | 'record' | 'listen' | 'unlisten' | 'clear' | 'export'
+export type PopupMessage = 'clear_previous_step' | 'unrecord' | 'record' | 'listen' | 'unlisten' | 'clear' | 'export' | 'export_cypress'
 
 export type HandleFromPopupMapType = {
   [key in PopupMessage]: () => void

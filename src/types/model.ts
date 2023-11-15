@@ -6,6 +6,7 @@ export type EventTypeProps = {
   content?: string
   isEnter?: boolean
   value?: string
+  id?: string
 };
 
 export type Ctx = {

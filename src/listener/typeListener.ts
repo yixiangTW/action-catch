@@ -14,10 +14,12 @@ const save = debounce((ctx: Ctx) => {
 
 const typeListener: ListenerType = (event, cb, keyPrefix) => {
   const element = event.target;
+  const id = (event?.target as HTMLElement)?.id;
   const xPath = getElementXPath(element);
   chrome.storage.sync.get('record', async (result) => {
     if (result.record) {
       const arg = {
+        id,
         xPath,
         ...(cb ? cb(event) : {}),
       };

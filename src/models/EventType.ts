@@ -13,6 +13,8 @@ export default class EventType {
 
   value?: string;
 
+  id?: string;
+
   isEnter?: boolean;
 
   constructor(props: EventTypeProps) {
@@ -22,6 +24,7 @@ export default class EventType {
     this.type = props.type;
     this.content = props.content;
     this.isEnter = props.isEnter;
+    this.id = props.id;
     this.value = props.value;
   }
 }

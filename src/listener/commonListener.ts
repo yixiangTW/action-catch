@@ -6,10 +6,12 @@ import { ListenerType } from '../types/listener';
 
 const commonListener: ListenerType = (event, cb, keyPrefix, eventName) => {
   const element = event.target;
+  const id = (event?.target as HTMLElement)?.id;
   const xPath = getElementXPath(element);
   chrome.storage.sync.get('record', async (result) => {
     if (result.record) {
       const arg = {
+        id,
         xPath,
         ...(cb ? cb(event) : {}),
       };
