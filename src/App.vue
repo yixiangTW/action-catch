@@ -75,7 +75,7 @@ chrome.runtime.onMessage.addListener((request) => {
   } else if (request.message === 'record') {
     respondRecordStatus(request.data);
   } else if (request.message === 'cypress_data') {
-    exportToJsonFile(request.data, 'cypress.js');
+    exportToJsonFile(request.data, 'spec.cy.js');
   }
 });
 

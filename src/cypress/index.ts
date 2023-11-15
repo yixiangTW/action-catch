@@ -20,7 +20,7 @@ function handleSelect(ctx: EventTypeProps) {
 }
 
 function exchangeCtxToCypress(context: Ctx) {
-  return Object.keys(context).map((key) => {
+  const steps = Object.keys(context).map((key) => {
     const ctx = context[key];
     let code = '';
     const eventType = key.split('-')[1];
@@ -47,6 +47,12 @@ function exchangeCtxToCypress(context: Ctx) {
     code += ';';
     return code;
   }).join('\n');
+
+  return `describe('template spec', () => {
+  it('passes', () => {
+    ${steps}
+  });
+});`;
 }
 
 export default exchangeCtxToCypress;
