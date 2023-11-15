@@ -82,15 +82,19 @@ describe('template spec', () => {
 
 ### Lifecycle
 
+##### Auto Relisten Mode
 ```mermaid
 graph TD;
-  Page_Load_Complete-->Auto_Listen-->Start_Recording-->Page_Reload_Complete-->Auto_Relisten-->Export_Records-->Export_Cypress_Case;
-  Start_Recording-->Clear_All_Records-->Export_Records-->Export_Cypress_Case
-  Start_Recording-->Clear_Previous_Step-->Export_Records-->Export_Cypress_Case
-  Start_Recording-->Stop_Recording-->Export_Records-->Export_Cypress_Case
-
+  Page_Load-->Auto_Listen-->Start_Recording-->Page_Reload-->Auto_Relisten-->Export_Record
 ```
 
+##### Manual Relisten Mode
+
+```mermaid
+graph TD;
+  Page_Load-->Start_Listening-->Start_Recording-->Page_Reload-->Relisten-->Export_Record
+
+```
 
 
 ### Todo
