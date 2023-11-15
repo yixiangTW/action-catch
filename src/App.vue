@@ -86,7 +86,7 @@ chrome.runtime.onMessage.addListener((request) => {
   <div id="chrome-extension-catch-container">
     <h5 id="listen-status">Monitoring status: <span :id="listenStatus ? 'listen-active' : 'listen-dead'">{{ listenStatus }}</span></h5>
     <h5 id="record-status">Logging status: <span :id="recordStatus ? 'record-active' : 'record-dead'">{{ recordStatus }}</span></h5>
-    <button @click="handleToggleListen">{{ listenStatus ? 'Relisten' : 'Listen' }}</button>
+    <button @click="handleToggleListen">{{ listenStatus ? 'Relisten' : 'Start listening' }}</button>
     <button @click="handleRecordListen">{{  recordStatus ? 'Stop Recording' : 'Start Recording' }}</button>
     <button @click="handleClearPreStep">Clear Previous Step</button>
     <button @click="handleClear">Clear All Records</button>
