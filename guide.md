@@ -25,3 +25,6 @@ Features:
 * Clear All Records -> Clear all operation records
 * Export Records -> The export operation is recorded as a json file
 * Export Cypress Case -> Convert the operation log to Cypress code and generate a file
+
+
+> This plugin is developed based on HTML5 semantic markup, so if there are instances of non-semantic tags in the page, it might not be able to listen. For example, attaching a click event to a div tag in this manner may not be detectable. The https://console-stg.cloud.vmware.com website is recommended to experience plugging
